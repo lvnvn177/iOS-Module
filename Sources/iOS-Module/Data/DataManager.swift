@@ -11,7 +11,7 @@ public class DataManager<T: Codable> {
     
     private let itemsKey = "sample"
     
-    init() {}
+    public init() {}
     
     // 데이터를 저장하는 함수
     public func saveItem(_ items: [T]) {
