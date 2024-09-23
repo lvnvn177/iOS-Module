@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DataManager<T: Codable> {
+public class DataManager<T: Codable> {
     
     private let itemsKey = "sample"
     
