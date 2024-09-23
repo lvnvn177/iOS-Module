@@ -1,6 +1,6 @@
 //
 //  PushNotificationManager.swift
-//  iOS-base-app
+//  iOS-Module
 //
 //  Created by 이영호 on 9/23/24.
 //
