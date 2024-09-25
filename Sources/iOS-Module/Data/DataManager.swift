@@ -36,10 +36,17 @@ public class DataManager<T: Codable> {
     // 데이터를 로드하는 함수
     public func loadItem() -> [T] {
         if let saveData = UserDefaults.standard.data(forKey: itemsKey) {
+            print("Saved data exists in UserDefaults: \(saveData)")
+            
             let decoder = JSONDecoder()
             if let decodedItems = try? decoder.decode([T].self, from: saveData) {
+                print("Decoded items: \(decodedItems)")
                 return decodedItems
+            } else {
+                print("Failed to decode saved data.")
             }
+        } else {
+            print("No data found in UserDefaults for key: \(itemsKey)")
         }
         
         return []
