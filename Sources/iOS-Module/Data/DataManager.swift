@@ -9,12 +9,12 @@ import Foundation
 
 public class DataManager<T: Codable> {
     
-    private let itemsKey = "sample"
+//    private let itemsKey = "sample"
     
     public init() {}
     
     // 데이터를 저장하는 함수
-    public func saveItem(_ items: [T]) {
+    public func saveItem(_ items: [T], forKey itemsKey: String) {
         let encoder = JSONEncoder()
         
         // JSON 인코딩이 잘 되었는지 확인
@@ -34,7 +34,7 @@ public class DataManager<T: Codable> {
     }
     
     // 데이터를 로드하는 함수
-    public func loadItem() -> [T] {
+    public func loadItem(forKey itemsKey: String) -> [T] {
         if let saveData = UserDefaults.standard.data(forKey: itemsKey) {
 //            print("Saved data exists in UserDefaults: \(saveData)")
             
