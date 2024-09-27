@@ -52,7 +52,7 @@ public class DataManager<T: Codable> {
         return []
     }
     
-    public func saveSetting(_ items: [T], forKey itemsKey: String) {
+    public func saveSetting(_ items: T, forKey itemsKey: String) {
         let encoder = JSONEncoder()
         
         if let encodedData = try? encoder.encode(items) {
