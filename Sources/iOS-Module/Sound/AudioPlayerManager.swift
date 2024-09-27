@@ -37,6 +37,7 @@ public class AudioPlayerManager: NSObject {
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.numberOfLoops = -1
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
             print("Audio is playing")
