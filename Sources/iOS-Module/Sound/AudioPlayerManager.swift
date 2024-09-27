@@ -7,18 +7,18 @@
 
 import AVFoundation
 
-class AudioPlayerManager: NSObject {
+public class AudioPlayerManager: NSObject {
     
-    static let shared = AudioPlayerManager()
+    public static let shared = AudioPlayerManager()
     
-    var audioPlayer: AVAudioPlayer?
+    public var audioPlayer: AVAudioPlayer?
     
-    override init() {
+    private override init() {
         super.init()
         setupAudioSession()
     }
     
-    func setupAudioSession() {
+    public func setupAudioSession() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.playback, mode: .default)
@@ -29,7 +29,7 @@ class AudioPlayerManager: NSObject {
         }
     }
     
-    func playBackgroundAudio (named fileName: String, withExtension ext: String) {
+    public func playBackgroundAudio (named fileName: String, withExtension ext: String) {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: ext) else {
             print("Audio file not found")
             return
@@ -45,7 +45,7 @@ class AudioPlayerManager: NSObject {
         }
     }
     
-    func stopAudio() {
+    public func stopAudio() {
         audioPlayer?.stop()
         print("Audio stopped")
     }
