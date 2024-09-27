@@ -9,11 +9,13 @@ import AVFoundation
 
 class AudioPlayerManager: NSObject {
     
+    static let shared = AudioPlayerManager()
+    
     var audioPlayer: AVAudioPlayer?
     
     override init() {
         super.init()
-        
+        setupAudioSession()
     }
     
     func setupAudioSession() {
