@@ -51,4 +51,31 @@ public class DataManager<T: Codable> {
         
         return []
     }
+    
+    public func saveSetting(_ items: [T], forKey itemsKey: String) {
+        let encoder = JSONEncoder()
+        
+        if let encodedData = try? encoder.encode(items) {
+            UserDefaults.standard.set(encodedData, forKey: itemsKey)
+        } else {
+            print("Failed to encode items.")
+        }
+    }
+    
+    public func loadSetting(forKey itemsKey: String) -> T? {
+        if let saveData = UserDefaults.standard.data(forKey: itemsKey) {
+            print("Saved data exists in UserDefaults for key \(itemsKey): \(saveData)")
+            
+            let decoder = JSONDecoder()
+            if let decodedItem = try? decoder.decode(T.self, from: saveData) {
+                print("Decoded item: \(decodedItem)")
+                return decodedItem
+            } else {
+                print("Failed to decode saved data.")
+            }
+        } else {
+            print("No data found in UserDefaults for key: \(itemsKey)")
+        }
+        return nil
+    }
 }
