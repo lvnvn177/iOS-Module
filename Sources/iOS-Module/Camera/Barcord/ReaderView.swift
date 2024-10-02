@@ -8,40 +8,40 @@
 import UIKit
 import AVFoundation
 
-enum ReaderStatus { // 바코드를 읽었을때의 상태
+public enum ReaderStatus { // 바코드를 읽었을때의 상태
     case success(_ code: String?)
     case fail
     case stop(_ isButtonTap: Bool)
 }
 
-protocol ReaderViewDelegate: AnyObject {
+public protocol ReaderViewDelegate: AnyObject {
     func readerComplete(status: ReaderStatus)
 }
 
-class ReaderView: UIView {  // 바코드 스캔 화면
+public class ReaderView: UIView {  // 바코드 스캔 화면
 
-    weak var delegate: ReaderViewDelegate?
+    public weak var delegate: ReaderViewDelegate?
     
-    var previewLayer: AVCaptureVideoPreviewLayer? // 카메라 미리보기
-    var centerGuideLineView: UIView? //
+    public var previewLayer: AVCaptureVideoPreviewLayer? // 카메라 미리보기
+    public var centerGuideLineView: UIView? //
     
-    var captureSession: AVCaptureSession?
+    public var captureSession: AVCaptureSession?
     
-    var isRunning: Bool {
+    public var isRunning: Bool {
         guard let captureSession = self.captureSession else {
             return false
         }
         return captureSession.isRunning
     }
 
-    let metadataObjectTypes: [AVMetadataObject.ObjectType] = [.upce, .code39, .code39Mod43, .code93, .code128, .ean8, .ean13, .aztec, .pdf417, .itf14, .dataMatrix, .interleaved2of5, .qr] // 바코드 종류
+    public let metadataObjectTypes: [AVMetadataObject.ObjectType] = [.upce, .code39, .code39Mod43, .code93, .code128, .ean8, .ean13, .aztec, .pdf417, .itf14, .dataMatrix, .interleaved2of5, .qr] // 바코드 종류
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.initialSetupView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initialSetupView()
     }
@@ -125,27 +125,27 @@ class ReaderView: UIView {  // 바코드 스캔 화면
 }
 // 바코드 인식 뷰 작동 함수 정의
 extension ReaderView {
-    func start() { // 캡쳐 시작
+    public func start() { // 캡쳐 시작
         self.captureSession?.startRunning()
     }
     
-    func stop(isButtonTap: Bool) { // 캡쳐 중단 또는 바코드 인식 후 자동 중단
+    public func stop(isButtonTap: Bool) { // 캡쳐 중단 또는 바코드 인식 후 자동 중단
         self.captureSession?.stopRunning()
         self.delegate?.readerComplete(status: .stop(isButtonTap))
     }
     
-    func fail() { // 바코드 인식 에러
+    public func fail() { // 바코드 인식 에러
         self.delegate?.readerComplete(status: .fail)
         self.captureSession = nil
     }
     
-    func found(code: String) { // 바코드 인식 성공
+    public func found(code: String) { // 바코드 인식 성공
         self.delegate?.readerComplete(status: .success(code))
     }
 }
 
 extension ReaderView: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         stop(isButtonTap: false)
         if let metadataObject = metadataObjects.first,
            let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
