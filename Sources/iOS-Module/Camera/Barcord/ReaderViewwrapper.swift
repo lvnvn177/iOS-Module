@@ -28,7 +28,7 @@ public struct ReaderViewWrapper: UIViewRepresentable {
     public class Coordinator: NSObject, ReaderViewDelegate {
         var parent: ReaderViewWrapper
         
-        init(_ parent: ReaderViewWrapper) {
+        public init(_ parent: ReaderViewWrapper) {
             self.parent = parent
         }
         
