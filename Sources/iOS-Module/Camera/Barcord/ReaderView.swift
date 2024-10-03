@@ -92,7 +92,11 @@ public class ReaderView: UIView {  // 바코드 스캔 화면
             return
         }
         // 카메라 미리보기에 바코드 인식 가이드 라인 지정
-        self.setPreviewLayer()
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession!)
+        self.previewLayer?.videoGravity = .resizeAspectFill
+        self.previewLayer?.frame = self.layer.bounds
+        self.layer.addSublayer(self.previewLayer!)
+//        self.setPreviewLayer()
         self.setCenterGuideLineView()
     }
     // 카메라 미리보기
