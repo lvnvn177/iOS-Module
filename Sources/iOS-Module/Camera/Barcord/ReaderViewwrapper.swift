@@ -11,6 +11,10 @@ import AVFoundation
 public struct ReaderViewWrapper: UIViewRepresentable {
     @Binding var scannedCode: String?  // 스캔된 코드를 전달하기 위한 바인딩 변수
     
+    public init(scannedCode: Binding<String?>) {
+        self._scannedCode = scannedCode
+    }
+    
     public func makeUIView(context: Context) -> ReaderView {
         let readerView = ReaderView()
         readerView.delegate = context.coordinator  // Delegate 설정
