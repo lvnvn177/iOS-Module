@@ -8,7 +8,7 @@
 import Foundation
 
 public class DataManager<T: Codable> {
-    
+
 //    private let itemsKey = "sample"
     
     public init() {}

@@ -10,26 +10,47 @@ let package = Package(
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "iOS-Module",
-            targets: ["iOS-Module"]),
+        .library(name: "ADManager", targets: ["ADManager"]),
+        .library(name: "ApiManager", targets: ["ApiManager"]),
+        .library(name: "DataManager", targets: ["DataManager"]),
+        .library(name: "MapManager", targets: ["MapManager"]),
     ],
     dependencies: [
         .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", 
                  from: "11.0.0"
-        )
+        ),
+        .package(url: "https://github.com/Alamofire/Alamofire.git",
+            from: "5.10.1"
+        ),
+       
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "iOS-Module",
+            name: "ADManager",
             dependencies: [
-                .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads")
-            ]
+                .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
+            ],
+            path: "./Sources/AD"
         ),
-        .testTarget(
-            name: "iOS-ModuleTests",
-            dependencies: ["iOS-Module"]),
+        .target(
+            name: "ApiManager",
+            dependencies: [
+                .product(name: "Alamofire", package: "Alamofire")
+            ],
+            path: "./Sources/API"
+        ),
+        .target(
+            name: "DataManager",
+            dependencies: [],
+            path: "./Sources/Data"
+        ),
+        .target(
+            name: "MapManager",
+            dependencies: [],
+            path: "./Sources/Map"
+        )
+      
     ]
 )

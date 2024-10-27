@@ -1,6 +1,15 @@
 {
-  "originHash" : "74c8ff99495d8149a22ffc3a14704a561393284fc99f29b3bd3855bb1b1e6741",
+  "originHash" : "e9e2f5aaea3f99f177163f50656aad70286a333783aa30cd09006ca49ae623d8",
   "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "e16d3481f5ed35f0472cb93350085853d754913f",
+        "version" : "5.10.1"
+      }
+    },
     {
       "identity" : "swift-package-manager-google-mobile-ads",
       "kind" : "remoteSourceControl",
