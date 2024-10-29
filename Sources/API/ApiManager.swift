@@ -20,9 +20,10 @@ public class ApiManager {
         url: String,
         parameters: [String: Any]? = nil,
         method: HTTPMethod = .get,
+        headers: HTTPHeaders,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
-        AF.request(url, method: method, parameters: parameters)
+        AF.request(url, method: method, parameters: parameters, headers: headers)
             .validate() // 요청이 성공적으로 처리되었는지 확인
             .responseDecodable(of: T.self) { response in
                 switch response.result {
