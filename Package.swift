@@ -14,7 +14,8 @@ let package = Package(
         .library(name: "ApiManager", targets: ["ApiManager"]),
         .library(name: "DataManager", targets: ["DataManager"]),
         .library(name: "MapManager", targets: ["MapManager"]),
-        .library(name: "AudioPlayerManager", targets: ["AudioPlayerManager"])
+        .library(name: "AudioPlayerManager", targets: ["AudioPlayerManager"]),
+        .library(name: "NotificationManager", targets: ["NotificationManager"])
     ],
     dependencies: [
         .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", 
@@ -56,6 +57,11 @@ let package = Package(
             name: "AudioPlayerManager",
             dependencies: [],
             path: "./Sources/Sound"
+        ),
+        .target(
+            name: "NotificationManager",
+            dependencies: [],
+            path: "./Sources/Notification"
         ),
     ]
 )

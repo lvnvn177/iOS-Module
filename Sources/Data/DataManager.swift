@@ -27,7 +27,7 @@ public class DataManager<T: Codable> {
         
         // 저장된 데이터 확인
         if let savedData = UserDefaults.standard.data(forKey: itemsKey) {
-//            print("Saved data exists in UserDefaults: \(savedData)")
+            print("Saved data exists in UserDefaults: \(savedData)")
         } else {
             print("No data found in UserDefaults for key: \(itemsKey)")
         }
