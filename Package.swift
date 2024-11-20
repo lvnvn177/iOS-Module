@@ -15,7 +15,8 @@ let package = Package(
         .library(name: "DataManager", targets: ["DataManager"]),
         .library(name: "MapManager", targets: ["MapManager"]),
         .library(name: "AudioPlayerManager", targets: ["AudioPlayerManager"]),
-        .library(name: "NotificationManager", targets: ["NotificationManager"])
+        .library(name: "NotificationManager", targets: ["NotificationManager"]),
+        .library(name: "KFImageManager", targets: ["KFImageManager"])
     ],
     dependencies: [
         .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", 
@@ -23,6 +24,9 @@ let package = Package(
         ),
         .package(url: "https://github.com/Alamofire/Alamofire.git",
             from: "5.10.1"
+        ),
+        .package(url: "https://github.com/onevcat/Kingfisher.git",
+            .upToNextMajor(from: "8.1.1")
         ),
        
     ],
@@ -62,6 +66,13 @@ let package = Package(
             name: "NotificationManager",
             dependencies: [],
             path: "./Sources/Notification"
+        ),
+        .target(
+            name: "KFImageManager",
+            dependencies: [
+                .product(name: "Kingfisher", package: "Kingfisher")
+            ],
+            path: "./Sources/Image"
         ),
     ]
 )
