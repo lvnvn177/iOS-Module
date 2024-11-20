@@ -8,8 +8,11 @@
 import Kingfisher
 import SwiftUI
 
-struct KFImageManager {
-    static func loadImage(url: String?, placeholder: UIImage? = nil) -> some View {
+public class KFImageManager {
+   
+    public init() {}
+    
+    @MainActor public func loadImage(url: String?, placeholder: UIImage? = nil) -> some View {
         KFImage(URL(string: url ?? ""))
             .placeholder {
                 Image(uiImage: placeholder ?? UIImage(named: "placeholder")!)
