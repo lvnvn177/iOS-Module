@@ -9,16 +9,14 @@ import Alamofire
 import Foundation
 
 public class ApiManager {
-    public init() {}
+    // Session을 클래스 프로퍼티로 유지
+    private let session: Session
     
-    /// Generic API 호출 메서드
-    /// - Parameters:
-    ///   - url: API의 URL
-    ///   - parameters: URL에 추가할 쿼리 파라미터들 (기본값: nil)
-    ///   - method: HTTP 메서드, 기본값은 `.get`
-    ///   - headers: HTTP 헤더
-    ///   - config: URLSessionConfiguration
-    ///   - completion: 결과를 반환할 클로저
+    public init() {
+        let configuration = URLSessionConfiguration.default
+        self.session = Session(configuration: configuration)
+    }
+    
     public func request<T: Decodable>(
         url: String,
         parameters: [String: Any]? = nil,
@@ -27,21 +25,19 @@ public class ApiManager {
         config: URLSessionConfiguration = .default,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
-        // Alamofire 세션 매니저 생성
-        let session = Session(configuration: config)
-        
+        // 기존 session 대신 클래스의 session 프로퍼티 사용
         session.request(url,
                        method: method,
                        parameters: parameters,
                        headers: headers)
-            .validate()
-            .responseDecodable(of: T.self) { response in
-                switch response.result {
-                case .success(let data):
-                    completion(.success(data))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+        .validate()
+        .responseDecodable(of: T.self) { response in
+            switch response.result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
             }
+        }
     }
 }
