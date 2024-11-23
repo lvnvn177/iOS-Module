@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import Foundation
 
 public class ApiManager {
     public init() {}
@@ -15,22 +16,31 @@ public class ApiManager {
     ///   - url: API의 URL
     ///   - parameters: URL에 추가할 쿼리 파라미터들 (기본값: nil)
     ///   - method: HTTP 메서드, 기본값은 `.get`
+    ///   - headers: HTTP 헤더
+    ///   - config: URLSessionConfiguration
     ///   - completion: 결과를 반환할 클로저
     public func request<T: Decodable>(
         url: String,
         parameters: [String: Any]? = nil,
         method: HTTPMethod = .get,
         headers: HTTPHeaders,
+        config: URLSessionConfiguration = .default,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
-        AF.request(url, method: method, parameters: parameters, headers: headers)
-            .validate() // 요청이 성공적으로 처리되었는지 확인
+        // Alamofire 세션 매니저 생성
+        let session = Session(configuration: config)
+        
+        session.request(url,
+                       method: method,
+                       parameters: parameters,
+                       headers: headers)
+            .validate()
             .responseDecodable(of: T.self) { response in
                 switch response.result {
                 case .success(let data):
-                    completion(.success(data)) // 성공 결과를 전달
+                    completion(.success(data))
                 case .failure(let error):
-                    completion(.failure(error)) // 실패 결과를 전달
+                    completion(.failure(error))
                 }
             }
     }
