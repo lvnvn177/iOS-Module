@@ -16,7 +16,8 @@ let package = Package(
         .library(name: "MapManager", targets: ["MapManager"]),
         .library(name: "AudioPlayerManager", targets: ["AudioPlayerManager"]),
         .library(name: "NotificationManager", targets: ["NotificationManager"]),
-        .library(name: "KFImageManager", targets: ["KFImageManager"])
+        .library(name: "KFImageManager", targets: ["KFImageManager"]),
+        .library(name: "UIGenerator", targets: ["UIGenerator"]) 
     ],
     dependencies: [
         .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", 
@@ -27,8 +28,7 @@ let package = Package(
         ),
         .package(url: "https://github.com/onevcat/Kingfisher.git",
             .upToNextMajor(from: "8.1.1")
-        ),
-       
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -74,5 +74,19 @@ let package = Package(
             ],
             path: "./Sources/Image"
         ),
+        .target(
+            name: "UIGenerator",
+            dependencies: [],
+            path: "./Sources/UIGenerator",
+            resources: [
+                .process("Examples") 
+            ]
+        ),
+        // UIGenerator 테스트 타겟 추가
+        .testTarget(
+            name: "UIGeneratorTests",
+            dependencies: ["UIGenerator"],
+            path: "./Tests/UIGenerator"
+        )
     ]
 )
