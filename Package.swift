@@ -17,7 +17,7 @@ let package = Package(
         .library(name: "AudioPlayerManager", targets: ["AudioPlayerManager"]),
         .library(name: "NotificationManager", targets: ["NotificationManager"]),
         .library(name: "KFImageManager", targets: ["KFImageManager"]),
-        .library(name: "UIGenerator", targets: ["UIGenerator"]) 
+        .library(name: "SDUIManager", targets: ["SDUIManager"]),
     ],
     dependencies: [
         .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", 
@@ -75,18 +75,9 @@ let package = Package(
             path: "./Sources/Image"
         ),
         .target(
-            name: "UIGenerator",
+            name: "SDUIManager",
             dependencies: [],
-            path: "./Sources/UIGenerator",
-            resources: [
-                .process("Examples") 
-            ]
+            path: "./Sources/UI"
         ),
-        // UIGenerator 테스트 타겟 추가
-        .testTarget(
-            name: "UIGeneratorTests",
-            dependencies: ["UIGenerator"],
-            path: "./Tests/iOS-ModuleTests"
-        )
     ]
 )
