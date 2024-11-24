@@ -86,7 +86,7 @@ let package = Package(
         .testTarget(
             name: "UIGeneratorTests",
             dependencies: ["UIGenerator"],
-            path: "./Tests/UIGenerator"
+            path: "./Tests/iOS-ModuleTests"
         )
     ]
 )
