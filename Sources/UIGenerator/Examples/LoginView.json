@@ -1,0 +1,101 @@
+{
+    "type": "stack",
+    "id": "loginContainer",
+    "properties": {
+        "direction": "vertical",
+        "spacing": 20
+    },
+    "padding": 20,
+    "backgroundColor": "#FFFFFF",
+    "children": [
+        {
+            "type": "image",
+            "id": "logo",
+            "properties": {
+                "systemName": "person.circle.fill"
+            },
+            "frame": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "properties": {
+                "text": "Welcome Back!"
+            },
+            "font": {
+                "size": 24,
+                "weight": "bold",
+                "design": "rounded"
+            },
+            "foregroundColor": "#000000"
+        },
+        {
+            "type": "textField",
+            "id": "emailField",
+            "properties": {
+                "placeholder": "Email",
+                "text": ""
+            },
+            "padding": 10,
+            "backgroundColor": "#F5F5F5",
+            "cornerRadius": 8
+        },
+        {
+            "type": "textField",
+            "id": "passwordField",
+            "properties": {
+                "placeholder": "Password",
+                "text": ""
+            },
+            "padding": 10,
+            "backgroundColor": "#F5F5F5",
+            "cornerRadius": 8
+        },
+        {
+            "type": "button",
+            "id": "loginButton",
+            "properties": {
+                "title": "Login"
+            },
+            "padding": 15,
+            "backgroundColor": "#007AFF",
+            "foregroundColor": "#FFFFFF",
+            "cornerRadius": 8
+        },
+        {
+            "type": "stack",
+            "id": "socialLoginContainer",
+            "properties": {
+                "direction": "horizontal",
+                "spacing": 20
+            },
+            "children": [
+                {
+                    "type": "button",
+                    "id": "googleLogin",
+                    "properties": {
+                        "title": "Google"
+                    },
+                    "padding": 10,
+                    "backgroundColor": "#DB4437",
+                    "foregroundColor": "#FFFFFF",
+                    "cornerRadius": 8
+                },
+                {
+                    "type": "button",
+                    "id": "appleLogin",
+                    "properties": {
+                        "title": "Apple"
+                    },
+                    "padding": 10,
+                    "backgroundColor": "#000000",
+                    "foregroundColor": "#FFFFFF",
+                    "cornerRadius": 8
+                }
+            ]
+        }
+    ]
+}
