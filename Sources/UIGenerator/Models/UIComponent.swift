@@ -11,6 +11,27 @@ public enum ComponentType: String, Codable {
     case spacer
 }
 
+// 스택 방향 정의
+public enum StackDirection: String, Codable {
+    case horizontal
+    case vertical
+}
+
+// 정렬 옵션
+public enum AlignmentType: String, Codable {
+    case leading
+    case center
+    case trailing
+    
+    var alignment: HorizontalAlignment {
+        switch self {
+        case .leading: return .leading
+        case .center: return .center
+        case .trailing: return .trailing
+        }
+    }
+}
+
 public struct UIComponent: Codable {
     public let type: ComponentType
     public let id: String
