@@ -87,16 +87,55 @@ private struct StyleModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(style?.padding ?? 0)
-            .background(Color(hex: style?.backgroundColor ?? "#00000000"))
-            .foregroundColor(Color(hex: style?.foregroundColor ?? "#000000"))
-            .cornerRadius(style?.cornerRadius ?? 0)
-            .font(.system(size: style?.fontSize ?? 16))
-            .fontWeight(convertFontWeight(style?.fontWeight))
-            .frame(
-                width: style?.width != nil ? CGFloat(style?.width ?? 0) : nil,
-                height: style?.height != nil ? CGFloat(style?.height ?? 0) : nil
-            )
+            .modifier(PaddingModifier(padding: style?.padding))
+            .modifier(BackgroundModifier(color: style?.backgroundColor))
+            .modifier(ForegroundModifier(color: style?.foregroundColor))
+            .modifier(CornerRadiusModifier(radius: style?.cornerRadius))
+            .modifier(FontModifier(size: style?.fontSize, weight: style?.fontWeight))
+            .modifier(FrameModifier(width: style?.width, height: style?.height))
+    }
+}
+
+private struct PaddingModifier: ViewModifier {
+    let padding: CGFloat?
+    
+    func body(content: Content) -> some View {
+        content.padding(padding ?? 0)
+    }
+}
+
+private struct BackgroundModifier: ViewModifier {
+    let color: String?
+    
+    func body(content: Content) -> some View {
+        content.background(Color(hex: color ?? "#00000000"))
+    }
+}
+
+private struct ForegroundModifier: ViewModifier {
+    let color: String?
+    
+    func body(content: Content) -> some View {
+        content.foregroundColor(Color(hex: color ?? "#000000"))
+    }
+}
+
+private struct CornerRadiusModifier: ViewModifier {
+    let radius: CGFloat?
+    
+    func body(content: Content) -> some View {
+        content.cornerRadius(radius ?? 0)
+    }
+}
+
+private struct FontModifier: ViewModifier {
+    let size: CGFloat?
+    let weight: Int?
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: size ?? 16))
+            .fontWeight(convertFontWeight(weight))
     }
     
     private func convertFontWeight(_ weight: Int?) -> Font.Weight {
@@ -113,6 +152,18 @@ private struct StyleModifier: ViewModifier {
         case 900: return .black
         default: return .regular
         }
+    }
+}
+
+private struct FrameModifier: ViewModifier {
+    let width: CGFloat?
+    let height: CGFloat?
+    
+    func body(content: Content) -> some View {
+        content.frame(
+            width: width != nil ? width : nil,
+            height: height != nil ? height : nil
+        )
     }
 }
 
