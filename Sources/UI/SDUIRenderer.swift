@@ -25,11 +25,11 @@ public struct SDUIRenderer {
         .modifier(StyleModifier(style: component.style))
     }
     
-    private static func renderText(_ component: SDUIComponent) -> some View {
+    private static func renderText(_ component: SDUIComponent) -> some View { // Text 렌더링
         Text(component.content ?? "")
     }
     
-    private static func renderImage(_ component: SDUIComponent) -> some View {
+    private static func renderImage(_ component: SDUIComponent) -> some View { // Image 렌더링
         AsyncImage(url: URL(string: component.content ?? "")) { phase in
             switch phase {
             case .empty:
@@ -44,7 +44,7 @@ public struct SDUIRenderer {
         }
     }
     
-    private static func renderButton(_ component: SDUIComponent) -> some View {
+    private static func renderButton(_ component: SDUIComponent) -> some View { // Button 렌더링
         Button(action: {
             // Handle action here
             print("Button tapped: \(component.action?.type ?? "")")
@@ -53,7 +53,7 @@ public struct SDUIRenderer {
         }
     }
     
-    private static func renderStack(_ component: SDUIComponent) -> some View {
+    private static func renderStack(_ component: SDUIComponent) -> some View { // Stack 렌더링
         Group {
             if component.stackAxis == .horizontal {
                 HStack(alignment: .center) {
@@ -71,7 +71,7 @@ public struct SDUIRenderer {
         }
     }
     
-    private static func renderList(_ component: SDUIComponent) -> some View {
+    private static func renderList(_ component: SDUIComponent) -> some View { // List 렌더링
         ScrollView {
             LazyVStack {
                 ForEach(component.children ?? [], id: \.id) { child in
@@ -82,7 +82,7 @@ public struct SDUIRenderer {
     }
 }
 
-private struct StyleModifier: ViewModifier {
+private struct StyleModifier: ViewModifier { // Component의 스타일, ViewMOdifier - 내가 커스텀한 UI 내용을 쉽게 실제 타겟에 입히게 해줌  
     let style: SDUIStyle?
     
     func body(content: Content) -> some View {
@@ -96,7 +96,7 @@ private struct StyleModifier: ViewModifier {
     }
 }
 
-private struct PaddingModifier: ViewModifier {
+private struct PaddingModifier: ViewModifier { // 간격
     let padding: CGFloat?
     
     func body(content: Content) -> some View {
@@ -104,7 +104,7 @@ private struct PaddingModifier: ViewModifier {
     }
 }
 
-private struct BackgroundModifier: ViewModifier {
+private struct BackgroundModifier: ViewModifier { // 백그라운드
     let color: String?
     
     func body(content: Content) -> some View {
@@ -112,7 +112,7 @@ private struct BackgroundModifier: ViewModifier {
     }
 }
 
-private struct ForegroundModifier: ViewModifier {
+private struct ForegroundModifier: ViewModifier { // 포어그라운드
     let color: String?
     
     func body(content: Content) -> some View {
@@ -120,7 +120,7 @@ private struct ForegroundModifier: ViewModifier {
     }
 }
 
-private struct CornerRadiusModifier: ViewModifier {
+private struct CornerRadiusModifier: ViewModifier { // 곡선
     let radius: CGFloat?
     
     func body(content: Content) -> some View {
@@ -128,7 +128,7 @@ private struct CornerRadiusModifier: ViewModifier {
     }
 }
 
-private struct FontModifier: ViewModifier {
+private struct FontModifier: ViewModifier { // 텍스트 사이즈 및 국ㄹ기
     let size: CGFloat?
     let weight: Int?
     
@@ -138,7 +138,7 @@ private struct FontModifier: ViewModifier {
             .fontWeight(convertFontWeight(weight))
     }
     
-    private func convertFontWeight(_ weight: Int?) -> Font.Weight {
+    private func convertFontWeight(_ weight: Int?) -> Font.Weight { // 폰트 타입
         guard let weight = weight else { return .regular }
         switch weight {
         case 100: return .ultraLight
@@ -155,7 +155,7 @@ private struct FontModifier: ViewModifier {
     }
 }
 
-private struct FrameModifier: ViewModifier {
+private struct FrameModifier: ViewModifier { // UI 사이즈
     let width: CGFloat?
     let height: CGFloat?
     
@@ -167,7 +167,7 @@ private struct FrameModifier: ViewModifier {
     }
 }
 
-extension Color {
+extension Color { // 색깔
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0

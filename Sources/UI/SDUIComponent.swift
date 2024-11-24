@@ -1,6 +1,6 @@
 import SwiftUI
 
-public enum SDUIComponentType: String, Codable {
+public enum SDUIComponentType: String, Codable {  // UI 컴포넌트 타입
     case text
     case image
     case button
@@ -9,7 +9,7 @@ public enum SDUIComponentType: String, Codable {
     case list
 }
 
-public enum SDUIStackAlignment: String, Codable {
+public enum SDUIStackAlignment: String, Codable { // UI 조정 옵션
     case leading
     case center
     case trailing
@@ -23,12 +23,12 @@ public enum SDUIStackAlignment: String, Codable {
     }
 }
 
-public enum SDUIStackAxis: String, Codable {
+public enum SDUIStackAxis: String, Codable { // UI 정령 방향
     case horizontal
     case vertical
 }
 
-public struct SDUIStyle: Codable {
+public struct SDUIStyle: Codable { // UI 커스텀 사항
     public var padding: CGFloat?
     public var backgroundColor: String?
     public var foregroundColor: String?
@@ -57,7 +57,7 @@ public struct SDUIStyle: Codable {
     }
 }
 
-public struct SDUIComponent: Codable {
+public struct SDUIComponent: Codable { // 앞서 정의한 UI 구조체들로 구성된 컴포넌트
     public let type: SDUIComponentType
     public let id: String
     public var content: String?
@@ -86,7 +86,7 @@ public struct SDUIComponent: Codable {
     }
 }
 
-public struct SDUIAction: Codable {
+public struct SDUIAction: Codable { // 컴포넌트 액션 구분 및 구현, 아직 미구현
     public let type: String
     public let payload: [String: String]
     
