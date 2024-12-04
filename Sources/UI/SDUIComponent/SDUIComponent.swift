@@ -14,7 +14,7 @@ public enum SDUIStackAlignment: String, Codable { // UI 조정 옵션
     case center
     case trailing
     
-    var alignment: HorizontalAlignment {
+    public var alignment: HorizontalAlignment {
         switch self {
         case .leading: return .leading
         case .center: return .center

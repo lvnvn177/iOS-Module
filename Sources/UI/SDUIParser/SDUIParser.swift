@@ -1,4 +1,5 @@
 import Foundation
+import SDUIComponent
 
 public class SDUIParser {
     public static func parse(json: String) throws -> SDUIComponent { // Local, SDUIComponent의 구조 형태로 작성된 json -> SDUIComponent 변환
