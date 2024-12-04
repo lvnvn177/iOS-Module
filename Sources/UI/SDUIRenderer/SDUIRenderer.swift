@@ -34,44 +34,23 @@ public struct SDUIRenderer {
     }
     
     private static func renderImage(_ component: SDUIComponent) -> some View {
-        if let imageURL = component.imageURL {
-            if imageURL.hasPrefix("http") || imageURL.hasPrefix("https") {
-                // URL 이미지인 경우
-                AsyncImage(url: URL(string: imageURL)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .modifier(FrameModifier(width: component.style?.width, height: component.style?.height))
-                            .modifier(BackgroundModifier(color: component.style?.backgroundColor))
-                            .modifier(PaddingModifier(padding: component.style?.padding))
-                            .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
-                    case .failure:
-                        Image(systemName: "photo")
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-            } else {
-                // SF Symbol인 경우
-                Image(systemName: imageURL)
+        AsyncImage(url: URL(string: component.content ?? "")) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let image):
+                image
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
                     .modifier(FrameModifier(width: component.style?.width, height: component.style?.height))
                     .modifier(BackgroundModifier(color: component.style?.backgroundColor))
                     .modifier(PaddingModifier(padding: component.style?.padding))
                     .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
+            case .failure:
+                Image(systemName: "photo")
+            @unknown default:
+                EmptyView()
             }
-        } else {
-            // 이미지 URL이 없는 경우 기본 이미지
-            Image(systemName: "photo")
-                .modifier(FrameModifier(width: component.style?.width, height: component.style?.height))
-                .modifier(BackgroundModifier(color: component.style?.backgroundColor))
-                .modifier(PaddingModifier(padding: component.style?.padding))
-                .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
         }
     }
     
