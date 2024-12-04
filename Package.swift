@@ -17,7 +17,9 @@ let package = Package(
         .library(name: "AudioPlayerManager", targets: ["AudioPlayerManager"]),
         .library(name: "NotificationManager", targets: ["NotificationManager"]),
         .library(name: "KFImageManager", targets: ["KFImageManager"]),
-        .library(name: "SDUIManager", targets: ["SDUIManager"]),
+        .library(name: "SDUIComponent", targets: ["SDUIComponent"]),
+        .library(name: "SDUIParser", targets: ["SDUIParser"]),
+        .library(name: "SDUIRenderer", targets: ["SDUIRenderer"]),
     ],
     dependencies: [
         .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", 
@@ -75,9 +77,19 @@ let package = Package(
             path: "./Sources/Image"
         ),
         .target(
-            name: "SDUIManager",
+            name: "SDUIComponent",
             dependencies: [],
-            path: "./Sources/UI"
+            path: "./Sources/UI/SDUIComponent"
+        ),
+        .target(
+            name: "SDUIParser",
+            dependencies: ["SDUIComponent"],
+            path: "./Sources/UI/SDUIParser"
+        ),
+        .target(
+            name: "SDUIRenderer",
+            dependencies: ["SDUIComponent", "SDUIParser"],
+            path: "./Sources/UI/SDUIRenderer"
         ),
     ]
 )
