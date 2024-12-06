@@ -98,7 +98,7 @@ public struct SDUIAction: Codable { // 컴포넌트 액션 구분 및 구현, �
 
 // MARK: - Content Updatable Protocol
 public protocol SDUIContentUpdatable {
-    func updateContent(_ newContent: Any, for identifier: String)
+    mutating func updateContent(_ newContent: Any, for identifier: String)
     func findComponent(by identifier: String) -> SDUIComponent?
 }
 
