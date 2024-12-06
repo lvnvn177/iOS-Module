@@ -95,3 +95,41 @@ public struct SDUIAction: Codable { // 컴포넌트 액션 구분 및 구현, �
         self.payload = payload
     }
 }
+
+// MARK: - Content Updatable Protocol
+public protocol SDUIContentUpdatable {
+    func updateContent(_ newContent: Any, for identifier: String)
+    func findComponent(by identifier: String) -> SDUIComponent?
+}
+
+extension SDUIComponent: SDUIContentUpdatable {
+    public mutating func updateContent(_ newContent: Any, for identifier: String) {
+        // 현재 컴포넌트의 id가 일치하는지 확인
+        if self.id == identifier {
+            self.content = "\(newContent)"
+        }
+        
+        // 자식 컴포넌트들도 재귀적으로 검색하여 업데이트
+        children?.indices.forEach { index in
+            children?[index].updateContent(newContent, for: identifier)
+        }
+    }
+    
+    public func findComponent(by identifier: String) -> SDUIComponent? {
+        // 현재 컴포넌트의 id가 일치하는지 확인
+        if self.id == identifier {
+            return self
+        }
+        
+        // 자식 컴포넌트들을 재귀적으로 검색
+        if let children = self.children {
+            for child in children {
+                if let found = child.findComponent(by: identifier) {
+                    return found
+                }
+            }
+        }
+        
+        return nil
+    }
+}
