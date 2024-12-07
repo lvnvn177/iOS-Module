@@ -23,6 +23,8 @@ public struct SDUIRenderer {
         return AnyView(Spacer())
     case .list:
         return AnyView(renderList(component))
+    case .scroll:
+        return AnyView(renderScroll(component, actionHandler: actionHandler))
     }
 }
     
@@ -134,6 +136,32 @@ public struct SDUIRenderer {
                 }
             }
         )
+    }
+    
+    private static func renderScroll(_ component: SDUIComponent, actionHandler: @escaping (SDUIAction?) -> Void) -> some View {
+        Group {
+            if component.scrollAxis == .horizontal {
+                ScrollView(.horizontal, showsIndicators: component.showIndicators ?? false) {
+                    HStack(spacing: 10) {
+                        ForEach(component.children ?? [], id: \.id) { child in
+                            AnyView(renderComponent(child, actionHandler: actionHandler))
+                        }
+                    }
+                    .padding(.horizontal, component.style?.padding ?? 0)
+                }
+            } else {
+                ScrollView(.vertical, showsIndicators: component.showIndicators ?? false) {
+                    VStack(spacing: 10) {
+                        ForEach(component.children ?? [], id: \.id) { child in
+                            AnyView(renderComponent(child, actionHandler: actionHandler))
+                        }
+                    }
+                    .padding(.vertical, component.style?.padding ?? 0)
+                }
+            }
+        }
+        .modifier(BackgroundModifier(color: component.style?.backgroundColor))
+        .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
     }
 }
 

@@ -1,0 +1,60 @@
+{
+  "type": "stack",
+  "id": "hourly_forecast_container",
+  "stackAxis": "vertical",
+  "stackAlignment": "leading",
+  "children": [
+    {
+      "type": "text",
+      "id": "hourly_title",
+      "content": "시간별 예보",
+      "style": {
+        "fontSize": 20,
+        "fontWeight": 600,
+        "foregroundColor": "#333333",
+        "padding": 16
+      }
+    },
+    {
+      "type": "stack",
+      "id": "hourly_scroll",
+      "stackAxis": "horizontal",
+      "stackAlignment": "leading",
+      "style": {
+        "padding": 16
+      },
+      "children": [
+        {
+          "type": "stack",
+          "id": "time_column",
+          "stackAxis": "vertical",
+          "stackAlignment": "center",
+          "style": {
+            "padding": 8
+          },
+          "children": []
+        },
+        {
+          "type": "stack",
+          "id": "icon_column",
+          "stackAxis": "vertical",
+          "stackAlignment": "center",
+          "style": {
+            "padding": 8
+          },
+          "children": []
+        },
+        {
+          "type": "stack",
+          "id": "temperature_column",
+          "stackAxis": "vertical",
+          "stackAlignment": "center",
+          "style": {
+            "padding": 8
+          },
+          "children": []
+        }
+      ]
+    }
+  ]
+}

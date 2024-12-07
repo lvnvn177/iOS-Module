@@ -7,6 +7,7 @@ public enum SDUIComponentType: String, Codable {  // UI 컴포넌트 타입
     case stack
     case spacer
     case list
+    case scroll
 }
 
 public enum SDUIStackAlignment: String, Codable { // UI 조정 옵션
@@ -24,6 +25,11 @@ public enum SDUIStackAlignment: String, Codable { // UI 조정 옵션
 }
 
 public enum SDUIStackAxis: String, Codable { // UI 정령 방향
+    case horizontal
+    case vertical
+}
+
+public enum SDUIScrollAxis: String, Codable {
     case horizontal
     case vertical
 }
@@ -66,6 +72,8 @@ public struct SDUIComponent: Codable { // 앞서 정의한 UI 구조체들로 �
     public var children: [SDUIComponent]?
     public var stackAxis: SDUIStackAxis?
     public var stackAlignment: SDUIStackAlignment?
+    public var scrollAxis: SDUIScrollAxis?
+    public var showIndicators: Bool?
     
     public init(type: SDUIComponentType,
                id: String,
@@ -74,7 +82,9 @@ public struct SDUIComponent: Codable { // 앞서 정의한 UI 구조체들로 �
                action: SDUIAction? = nil,
                children: [SDUIComponent]? = nil,
                stackAxis: SDUIStackAxis? = nil,
-               stackAlignment: SDUIStackAlignment? = nil) {
+               stackAlignment: SDUIStackAlignment? = nil,
+               scrollAxis: SDUIScrollAxis? = nil,
+               showIndicators: Bool? = nil) {
         self.type = type
         self.id = id
         self.content = content
@@ -83,6 +93,8 @@ public struct SDUIComponent: Codable { // 앞서 정의한 UI 구조체들로 �
         self.children = children
         self.stackAxis = stackAxis
         self.stackAlignment = stackAlignment
+        self.scrollAxis = scrollAxis
+        self.showIndicators = showIndicators ?? false
     }
 }
 
@@ -105,10 +117,19 @@ public protocol SDUIContentUpdatable {
 extension SDUIComponent: SDUIContentUpdatable {
     public mutating func updateContent(_ newContent: Any, for identifier: String) {
         // 현재 컴포넌트의 id가 일치하는지 확인
+//        if self.id == identifier {
+//            self.content = "\(newContent)"
+//        }
+
         if self.id == identifier {
-            self.content = "\(newContent)"
+                    // newContent가 배열이고 SDUIComponent 배열인 경우 children 업데이트
+                    if let newComponents = newContent as? [SDUIComponent] {
+                        self.children = newComponents
+                    } else {
+                        // 기존처럼 content 업데이트
+                        self.content = "\(newContent)"
+                    }
         }
-        
         // 자식 컴포넌트들도 재귀적으로 검색하여 업데이트
         children?.indices.forEach { index in
             children?[index].updateContent(newContent, for: identifier)
