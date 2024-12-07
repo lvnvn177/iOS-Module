@@ -24,6 +24,14 @@ public enum SDUIStackAlignment: String, Codable { // UI 조정 옵션
     }
 }
 
+public enum TextAlignment: String, Codable {
+    case leading
+    case center
+    case trailing
+}
+
+
+
 public enum SDUIStackAxis: String, Codable { // UI 정령 방향
     case horizontal
     case vertical
@@ -36,6 +44,7 @@ public enum SDUIScrollAxis: String, Codable {
 
 public struct SDUIStyle: Codable { // UI 커스텀 사항
     public var padding: CGFloat?
+    public var spacing: CGFloat?
     public var backgroundColor: String?
     public var foregroundColor: String?
     public var cornerRadius: CGFloat?
@@ -44,15 +53,27 @@ public struct SDUIStyle: Codable { // UI 커스텀 사항
     public var width: CGFloat?
     public var height: CGFloat?
     
-    public init(padding: CGFloat? = nil,
+    public var alignment: TextAlignment?  // 추가
+        
+        public enum TextAlignment: String, Codable {
+            case leading
+            case center
+            case trailing
+    }
+    
+    public init(
+               padding: CGFloat? = nil,
+               spacing: CGFloat? = nil,
                backgroundColor: String? = nil,
                foregroundColor: String? = nil,
                cornerRadius: CGFloat? = nil,
                fontSize: CGFloat? = nil,
                fontWeight: Int? = nil,
                width: CGFloat? = nil,
-               height: CGFloat? = nil) {
+               height: CGFloat? = nil,
+               alignment: TextAlignment? = nil) {
         self.padding = padding
+        self.spacing = spacing
         self.backgroundColor = backgroundColor
         self.foregroundColor = foregroundColor
         self.cornerRadius = cornerRadius
@@ -60,6 +81,7 @@ public struct SDUIStyle: Codable { // UI 커스텀 사항
         self.fontWeight = fontWeight
         self.width = width
         self.height = height
+        self.alignment = alignment
     }
 }
 

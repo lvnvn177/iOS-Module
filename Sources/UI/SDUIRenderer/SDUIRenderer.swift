@@ -35,6 +35,19 @@ public struct SDUIRenderer {
             .modifier(BackgroundModifier(color: component.style?.backgroundColor))
             .modifier(PaddingModifier(padding: component.style?.padding))
             .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
+            .modifier(TextAlignmentModifier(alignment: getTextAlignment(component.style?.alignment)))
+    }
+    
+    private static func getTextAlignment(_ alignment: SDUIStyle.TextAlignment?) -> SwiftUI.TextAlignment? {
+        guard let alignment = alignment else { return nil }
+        switch alignment {
+        case .center:
+            return .center
+        case .trailing:
+            return .trailing
+        case .leading:
+            return .leading
+        }
     }
     
     private static func renderImage(_ component: SDUIComponent) -> some View {
@@ -100,28 +113,50 @@ public struct SDUIRenderer {
         }
     }
     
+//    private static func renderStack(_ component: SDUIComponent, actionHandler: @escaping (SDUIAction?) -> Void) -> AnyView {
+//        if component.stackAxis == .horizontal {
+//            return AnyView(
+//                HStack(alignment: .center) {
+//                    ForEach(component.children ?? [], id: \.id) { child in
+//                        renderComponent(child, actionHandler: actionHandler)
+//                    }
+//                }
+//                .modifier(BackgroundModifier(color: component.style?.backgroundColor))
+//                .modifier(PaddingModifier(padding: component.style?.padding))
+//                .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
+//            )
+//        } else {
+//            return AnyView(
+//                VStack(alignment: component.stackAlignment?.alignment ?? .center) {
+//                    ForEach(component.children ?? [], id: \.id) { child in
+//                        renderComponent(child, actionHandler: actionHandler)
+//                    }
+//                }
+//                .modifier(BackgroundModifier(color: component.style?.backgroundColor))
+//                .modifier(PaddingModifier(padding: component.style?.padding))
+//                .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
+//            )
+//        }
+//    }
+    
     private static func renderStack(_ component: SDUIComponent, actionHandler: @escaping (SDUIAction?) -> Void) -> AnyView {
         if component.stackAxis == .horizontal {
             return AnyView(
-                HStack(alignment: .center) {
+                HStack(alignment: .center, spacing: component.style?.spacing ?? 0) {
                     ForEach(component.children ?? [], id: \.id) { child in
                         renderComponent(child, actionHandler: actionHandler)
                     }
                 }
-                .modifier(BackgroundModifier(color: component.style?.backgroundColor))
                 .modifier(PaddingModifier(padding: component.style?.padding))
-                .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
             )
         } else {
             return AnyView(
-                VStack(alignment: component.stackAlignment?.alignment ?? .center) {
+                VStack(alignment: .center, spacing: component.style?.spacing ?? 0) {
                     ForEach(component.children ?? [], id: \.id) { child in
                         renderComponent(child, actionHandler: actionHandler)
                     }
                 }
-                .modifier(BackgroundModifier(color: component.style?.backgroundColor))
                 .modifier(PaddingModifier(padding: component.style?.padding))
-                .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
             )
         }
     }
@@ -233,6 +268,18 @@ private struct FrameModifier: ViewModifier {
             width: width != nil ? width : nil,
             height: height != nil ? height : nil
         )
+    }
+}
+
+private struct TextAlignmentModifier: ViewModifier {
+    let alignment: SwiftUI.TextAlignment?
+    
+    func body(content: Content) -> some View {
+        if let alignment = alignment {
+            content.multilineTextAlignment(alignment)
+        } else {
+            content
+        }
     }
 }
 
