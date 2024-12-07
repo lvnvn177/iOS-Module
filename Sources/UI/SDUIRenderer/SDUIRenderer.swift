@@ -38,7 +38,7 @@ public struct SDUIRenderer {
             .modifier(TextAlignmentModifier(alignment: getTextAlignment(component.style?.alignment)))
     }
     
-    private static func getTextAlignment(_ alignment: SDUIStyle.TextAlignment?) -> SwiftUI.TextAlignment? {
+    private static func getTextAlignment(_ alignment: SDUIStyle.TextAlignment?) -> SwiftUI.TextAlignment? { // text 정렬
         guard let alignment = alignment else { return nil }
         switch alignment {
         case .center:
