@@ -239,7 +239,8 @@ private struct BackgroundModifier: ViewModifier {
     let color: String?
     
     func body(content: Content) -> some View {
-        content.background(Color(hex: color ?? "#FFFFFF"))
+        content.background(Color.clear)
+//        content.background(Color(hex: color ?? "#FFFFFF"))
     }
 }
 

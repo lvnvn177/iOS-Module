@@ -5,7 +5,7 @@ public enum SDUIComponentType: String, Codable {  // UI 컴포넌트 타입
     case image
     case button
     case stack
-    case spacer
+    case spacer // ?
     case list
     case scroll
 }
@@ -24,7 +24,7 @@ public enum SDUIStackAlignment: String, Codable { // UI 조정 옵션
     }
 }
 
-public enum TextAlignment: String, Codable {
+public enum TextAlignment: String, Codable { // Text 정렬 방향
     case leading
     case center
     case trailing
@@ -32,12 +32,12 @@ public enum TextAlignment: String, Codable {
 
 
 
-public enum SDUIStackAxis: String, Codable { // UI 정령 방향
+public enum SDUIStackAxis: String, Codable { // UI 정렬 방향
     case horizontal
     case vertical
 }
 
-public enum SDUIScrollAxis: String, Codable {
+public enum SDUIScrollAxis: String, Codable { // Scroll 정렬 방향
     case horizontal
     case vertical
 }
@@ -131,7 +131,7 @@ public struct SDUIAction: Codable { // 컴포넌트 액션 구분 및 구현, �
 }
 
 // MARK: - Content Updatable Protocol
-public protocol SDUIContentUpdatable {
+public protocol SDUIContentUpdatable { // SDUIComponent - interface
     mutating func updateContent(_ newContent: Any, for identifier: String)
     func findComponent(by identifier: String) -> SDUIComponent?
 }
