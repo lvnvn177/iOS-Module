@@ -147,6 +147,7 @@ public struct SDUIRenderer {
                         renderComponent(child, actionHandler: actionHandler)
                     }
                 }
+                .background(Color.clear)
                 .modifier(PaddingModifier(padding: component.style?.padding))
             )
         } else {
@@ -156,6 +157,7 @@ public struct SDUIRenderer {
                         renderComponent(child, actionHandler: actionHandler)
                     }
                 }
+                .background(Color.clear)
                 .modifier(PaddingModifier(padding: component.style?.padding))
             )
         }
