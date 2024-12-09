@@ -64,6 +64,7 @@ public struct SDUIRenderer {
                                 .resizable()
                                 .scaledToFit()
                                 .modifier(FrameModifier(width: component.style?.width, height: component.style?.height))
+                                .modifier(ForegroundModifier(color: component.style?.foregroundColor))
                                 .modifier(BackgroundModifier(color: component.style?.backgroundColor))
                                 .modifier(PaddingModifier(padding: component.style?.padding))
                                 .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
