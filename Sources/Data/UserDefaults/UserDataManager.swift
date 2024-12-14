@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class DataManager<T: Codable> {
+public class UserDataManager<T: Codable> {
 
 //    private let itemsKey = "sample"
     

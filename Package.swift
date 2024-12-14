@@ -12,7 +12,8 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(name: "ADManager", targets: ["ADManager"]),
         .library(name: "ApiManager", targets: ["ApiManager"]),
-        .library(name: "DataManager", targets: ["DataManager"]),
+        .library(name: "UserDataManager", targets: ["UserDataManager"]),
+        .library(name: "CoreDataManager", targets: ["CoreDataManager"]),
         .library(name: "MapManager", targets: ["MapManager"]),
         .library(name: "AudioPlayerManager", targets: ["AudioPlayerManager"]),
         .library(name: "NotificationManager", targets: ["NotificationManager"]),
@@ -50,9 +51,14 @@ let package = Package(
             path: "./Sources/API"
         ),
         .target(
-            name: "DataManager",
+            name: "UserDataManager",
             dependencies: [],
-            path: "./Sources/Data"
+            path: "./Sources/Data/UserDefaults"
+        ),
+        .target(
+            name: "CoreDataManager",
+            dependencies: [],
+            path: "./Sources/Data/CoreData"
         ),
         .target(
             name: "MapManager",
