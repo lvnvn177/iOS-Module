@@ -2,7 +2,20 @@ import SwiftUI
 import SDUIComponent
 import SDUIParser
 
-public struct SDUIRenderer {
+public struct SDUIRenderer: View {
+    
+    let component: SDUIComponent
+    let onAction: (SDUIAction?) -> Void
+    
+    public init(component: SDUIComponent, onAction: @escaping (SDUIAction?) -> Void) {
+            self.component = component
+            self.onAction = onAction
+    }
+        
+    public var body: some View {
+        SDUIRenderer.renderComponent(component, actionHandler: onAction)
+    }
+    
     public static func render(_ component: SDUIComponent, actionHandler: @escaping (SDUIAction?) -> Void) -> AnyView {
         return AnyView(renderComponent(component, actionHandler: actionHandler))
     }
@@ -114,31 +127,7 @@ public struct SDUIRenderer {
         }
     }
     
-//    private static func renderStack(_ component: SDUIComponent, actionHandler: @escaping (SDUIAction?) -> Void) -> AnyView {
-//        if component.stackAxis == .horizontal {
-//            return AnyView(
-//                HStack(alignment: .center) {
-//                    ForEach(component.children ?? [], id: \.id) { child in
-//                        renderComponent(child, actionHandler: actionHandler)
-//                    }
-//                }
-//                .modifier(BackgroundModifier(color: component.style?.backgroundColor))
-//                .modifier(PaddingModifier(padding: component.style?.padding))
-//                .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
-//            )
-//        } else {
-//            return AnyView(
-//                VStack(alignment: component.stackAlignment?.alignment ?? .center) {
-//                    ForEach(component.children ?? [], id: \.id) { child in
-//                        renderComponent(child, actionHandler: actionHandler)
-//                    }
-//                }
-//                .modifier(BackgroundModifier(color: component.style?.backgroundColor))
-//                .modifier(PaddingModifier(padding: component.style?.padding))
-//                .modifier(CornerRadiusModifier(radius: component.style?.cornerRadius))
-//            )
-//        }
-//    }
+
     
     private static func renderStack(_ component: SDUIComponent, actionHandler: @escaping (SDUIAction?) -> Void) -> AnyView {
         if component.stackAxis == .horizontal {
